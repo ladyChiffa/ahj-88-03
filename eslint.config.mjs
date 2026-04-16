@@ -1,9 +1,9 @@
 import js from "@eslint/js";
 import globals from "globals";
-import { defineConfig } from "eslint/config";
+// import { defineConfig } from "eslint/config";
 import jest from "eslint-plugin-jest";
 
-export default defineConfig([
+export default [
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
@@ -31,4 +31,4 @@ export default defineConfig([
       'no-var': 'error', 
     }
   },
-]);
+];

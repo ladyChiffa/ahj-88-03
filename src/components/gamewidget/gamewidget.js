@@ -66,7 +66,7 @@ export default class GameWidget {
 
     blowHandler(success) {
         if (success) {
-            this._scoreElement.innerText = ++this._score
+            this._scoreElement.innerText = ++this._score;
         }
         else {
             this._errorElement.innerText = ++this._errorScore;
