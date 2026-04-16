@@ -1,22 +1,16 @@
+import js from "@eslint/js";
 import globals from "globals";
-import pluginJs from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import jest from "eslint-plugin-jest";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
-export default [
+export default defineConfig([
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
-  },
-  pluginJs.configs.recommended,
-  eslintPluginPrettierRecommended,
-  {
-    rules: {
-      "no-unused-vars": "warn",
-    },
   },
   {
     ignores: ["dist/*", "coverage/*"],
   },
+  js.configs.recommended,
   {
     files: ["**/*.test.js"],
     ...jest.configs["flat/recommended"],
@@ -26,4 +20,15 @@ export default [
       "jest/expect-expect": "error",
     },
   },
-];
+  {
+    files: ['src/**/*.js'],
+    rules: {
+      indent: ['error', 4],
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      'no-unused-vars': 'off',
+      'no-console': 'off',
+      'no-var': 'error', 
+    }
+  },
+]);

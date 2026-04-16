@@ -1,0 +1,26 @@
+﻿.game {
+    border: 2px solid black;
+    width:400px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:space-around;
+}
+
+.button {
+    border-radius: 10px;
+    border: 1px solid black;
+    margin:5px;
+    padding:2px;
+    cursor: pointer;
+    background-color: aquamarine;
+}
+
+.label {
+    margin:5px;
+}
+
+.score {
+    width:50px;
+    margin:5px;
+}

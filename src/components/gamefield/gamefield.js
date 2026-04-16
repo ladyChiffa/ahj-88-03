@@ -12,10 +12,18 @@ export default class GameField {
         this._currentCell = {x: undefined, y: undefined};
         this._goblin = null;
 
+        this._gameCallback = null;
+
+        this._interval = null;
+
         this.moveGoblin = this.moveGoblin.bind(this);
+        this.startMove = this.startMove.bind(this);
+        this.stopMove = this.stopMove.bind(this);
 
         this.renderGameField();
         this.renderGoblin();
+        this.blow = this.blow.bind(this);
+        this._element.addEventListener('click', this.blow);
     }
 
     renderGameField() {
@@ -48,14 +56,40 @@ export default class GameField {
         let x;
         let y;
         do {
-            x = Math.floor(Math.random() * this._dimension);;
-            y = Math.floor(Math.random() * this._dimension);;
+            x = Math.floor(Math.random() * this._dimension);
+            y = Math.floor(Math.random() * this._dimension);
         } while (this._currentCell.x == x && this._currentCell.y == y);
         this._currentCell.x = x;
         this._currentCell.y = y;
 
         this._goblin.remove();
+
+        if (!this._blowed) {
+            this._gameCallback(false);
+        }
+
         this._cells[this._currentCell.x][this._currentCell.y].append(this._goblin);
+        this._blowed = false;
     }
 
+    startMove(callback) {
+        this._blowed = true;
+        this._gameCallback = callback;
+        if (!this._interval) {
+            this._interval = setInterval(this.moveGoblin, 1000);
+        }
+    }
+    stopMove() {
+        clearInterval(this._interval);
+        this._interval = null;
+        this._goblin.remove();
+    }
+    blow(e){
+        const element = e.target.closest('.gamecell');
+        const goblin = element.querySelector('.goblin');
+        if(goblin) {
+            this._blowed = true;
+            this._gameCallback(true);
+        }
+    }
 }
