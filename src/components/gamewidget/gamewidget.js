@@ -8,6 +8,7 @@ export default class GameWidget {
         this._element = element;
         this._score = 0;
         this._errorScore = 0;
+        this._stopErrorScore = 5;
 
         this._gameField = gameField;
 
@@ -67,10 +68,10 @@ export default class GameWidget {
     blowHandler(success) {
         if (success) {
             this._scoreElement.innerText = ++this._score;
+            return false;
         }
-        else {
-            this._errorElement.innerText = ++this._errorScore;
-            if (this._errorScore >= 5) this.stopGame();
-        }
+        this._errorElement.innerText = ++this._errorScore;
+        if (this._errorScore >= this._stopErrorScore) return true;
+        return false;
     }
 }
